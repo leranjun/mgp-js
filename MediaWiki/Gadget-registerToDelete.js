@@ -1,7 +1,7 @@
 // <pre>
 $(function() {
     var self = $('#p-cactions .menu ul');
-    if (!self.find('li')[0] || $('.willBeDeleted')[0] || mw.config.get('wgUserGroups').indexOf('patroller') === -1) return;
+    if (!self.find('li')[0] || $('.will2Be2Deleted')[0] || mw.config.get('wgUserGroups').indexOf('patroller') === -1) return;
     $('<a/>', {
         attr: {
             href: "#",
@@ -27,7 +27,7 @@ $(function() {
                     'background-color': 'rgba(255,255,255,0.73)',
                     'text-align': 'center'
                 }
-            }).append('<img src="https://static.mengniang.org/common/d/d1/Windows_10_loading.gif" style="height: 1em; margin-top: -.25em;">正在挂删中……'),
+            }).append('<img src="https://img.moegirl.org.cn/common/d/d1/Windows_10_loading.gif" style="height: 1em; margin-top: -.25em;">正在挂删中……'),
             reasonText = reason ? '|' + reason : '',
             api = new mw.Api();
         loadingBox.endOut = function endOut() {
