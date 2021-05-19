@@ -1,0 +1,58 @@
+/*
+ScrollToBottom.js
+Made with ♥ by User:Leranjun
+Based on [[MediaWiki:Gadget-Backtotop.js]] by User:AnnAngela
+*/
+// <pre>
+/* 前往底部 */
+$(function () {
+    var body = document.body,
+        html = document.documentElement;
+    var innerWidth = window.innerWidth;
+    var scrollbarWidth;
+    var targetH = $("#mw-content-text .mw-parser-output h2").last().offset().top;
+    var limit = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight) - window.innerHeight;
+    switch ("scroll") {
+        case getComputedStyle(body).overflowY:
+            scrollbarWidth = innerWidth - body.clientWidth;
+            break;
+        case getComputedStyle(html).overflowY:
+            scrollbarWidth = innerWidth - html.clientWidth;
+            break;
+        default:
+            var backup = body.style.overflowY;
+            body.style.overflowY = "scroll";
+            scrollbarWidth = innerWidth - body.clientWidth;
+            body.style.overflowY = backup;
+    }
+    var btn = $("<div/>", {
+        text: "前往底部",
+        attr: {
+            title: "前往底部",
+            class: "backToTop", // Not a typo, too lazy to write CSS :P
+        },
+        css: {
+            "user-select": "none",
+            bottom: "200px", // Random offset, change if overlapping
+        },
+        on: {
+            click: function () {
+                $("html, body").animate(
+                    {
+                        scrollTop: targetH,
+                    },
+                    120
+                );
+            },
+        },
+    }).appendTo(document.body);
+    if (scrollbarWidth === 0) {
+        btn.css("right", "20px"); // 修复新版 Chrome 的自动隐藏式滚动条导致的按钮被覆盖 chrome://flags/#overlay-scrollbars
+    }
+    $(window)
+        .on("scroll", function () {
+            $(document).scrollTop() < Math.min(targetH, limit) ? btn.fadeIn() : btn.fadeOut();
+        })
+        .scroll();
+});
+// </pre>

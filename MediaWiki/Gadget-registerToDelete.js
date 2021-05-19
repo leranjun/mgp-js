@@ -10,10 +10,10 @@ $(function() {
         },
         text: '挂删'
     }).on('click', function() {
-        var reason = prompt('挂删的理由【将会替换全文内容】\n【空白则使用默认理由（不在收录范围内或潜在价值较低）】\n【取消则不进行挂删】：'),
+        var reason = prompt('挂删的理由【将会替换全文内容】\n【空白则使用默认理由（不在收录范围内）】\n【取消则不进行挂删】：'),
             self = $(this);
         if (reason === null) return;
-        if (reason === '') reason = '不在收录范围内或潜在价值较低';
+        if (reason === '') reason = '不在收录范围内';
         var loadingBox = $('<div/>', {
                 css: {
                     position: 'fixed',
