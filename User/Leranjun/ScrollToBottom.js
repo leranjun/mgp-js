@@ -10,7 +10,9 @@ $(function () {
         html = document.documentElement;
     var innerWidth = window.innerWidth;
     var scrollbarWidth;
-    var targetH = $("#mw-content-text .mw-parser-output h2").last().offset().top;
+    var targetH = $("#mw-content-text .mw-parser-output h2")[0]
+        ? $("#mw-content-text .mw-parser-output h2").last().offset().top
+        : $("#mw-content-text").offset().top + $("#mw-content-text").outerHeight();
     var limit = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight) - window.innerHeight;
     switch ("scroll") {
         case getComputedStyle(body).overflowY:
