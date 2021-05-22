@@ -14,6 +14,8 @@ $(function () {
         ? $("#mw-content-text .mw-parser-output h2").last().offset().top
         : $("#mw-content-text").offset().top + $("#mw-content-text").outerHeight();
     var limit = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight) - window.innerHeight;
+    var bottomOffset =
+        Math.max(parseFloat($("#heimu_toggle").css("bottom")) || 0, parseFloat($(".backToTop").first().css("bottom")) || 0) + 93 + "px"; // Offset based on heimu toggle and back-to-top button
     switch ("scroll") {
         case getComputedStyle(body).overflowY:
             scrollbarWidth = innerWidth - body.clientWidth;
@@ -35,7 +37,7 @@ $(function () {
         },
         css: {
             "user-select": "none",
-            bottom: "200px", // Random offset, change if overlapping
+            bottom: bottomOffset,
         },
         on: {
             click: function () {
@@ -53,7 +55,7 @@ $(function () {
     }
     $(window)
         .on("scroll", function () {
-            $(document).scrollTop() < Math.min(targetH, limit) ? btn.fadeIn() : btn.fadeOut();
+            $(document).scrollTop() < Math.floor(Math.min(targetH, limit)) ? btn.fadeIn() : btn.fadeOut();
         })
         .scroll();
 });
