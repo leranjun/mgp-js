@@ -38,6 +38,7 @@ $(() => {
                         "align-items": "center",
                         "justify-content": "center",
                         "background-color": "rgba(255, 255, 255, 0.73)",
+                        "z-index": "199",
                     },
                     id: "FlagForDeletion",
                 }),
@@ -116,7 +117,6 @@ $(() => {
                     padding: "2em",
                     "border-radius": "10px",
                     "background-color": "#fff",
-                    "z-index": "199",
                 })
             );
             body.append(wrapper);
