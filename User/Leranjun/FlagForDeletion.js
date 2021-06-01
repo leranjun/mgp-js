@@ -1,3 +1,9 @@
+/*
+FlagForDeletion.js
+by User:Leranjun
+
+Based on [[MediaWiki:Gadget-registerToDelete.js]]
+*/
 // <pre>
 $(() => {
     var self = $("#p-cactions .menu ul");
@@ -105,10 +111,12 @@ $(() => {
             wrapper.append(
                 fieldset.$element.css({
                     width: "50%",
+                    "max-width": "50em",
                     border: "thin solid black",
                     padding: "2em",
                     "border-radius": "10px",
                     "background-color": "#fff",
+                    "z-index": "199",
                 })
             );
             body.append(wrapper);
@@ -119,13 +127,11 @@ $(() => {
                 var reason = reasons.getValue(),
                     detail = details.getValue();
 
-                if (reason == null || detail == null) {
+                if (reason === null || detail === null) {
                     return;
                 }
-                if (reason !== "") {
-                    if (detail != "") {
-                        reason += "：" + detail;
-                    }
+                if (reason && detail) {
+                    reason += "：" + detail;
                 } else {
                     reason = detail;
                 }
