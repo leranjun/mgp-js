@@ -172,7 +172,7 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
                         window.setTimeout(() => window.location.reload(), 730);
                     }
                 } catch (e) {
-                    mw.notify($("<span>挂删时出现错误：<code>" + e + "</code></span>"), {
+                    mw.notify(["挂删时出现错误：", $("<code />").text(e)], {
                         title: "挂删失败",
                         type: "error",
                         tag: "FlagForDeletion",
