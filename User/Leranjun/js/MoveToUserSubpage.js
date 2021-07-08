@@ -43,7 +43,7 @@ Based on [[User:C8H17OH/moveToUserSubpage.js]]
             const NOTIFTITLE = convTemplate(window.lr_mtus_title || "提醒：请不要创建低质量页面", "1", pagename),
                 NOTIFCONTENT = convTemplate(
                     window.lr_mtus_content ||
-                        "注意到您最近创建的“$1”页面由于无实质内容，已移动至您的[[$2|用户页子页面]]下。请您以后避免在页面尚未达到最低质量标准的情况下直接在主名字空间创建。您可以待质量达到标准后再移动回主名字空间。感谢您的配合。",
+                        "注意到您最近创建的“$1”页面由于质量不足，已移动至您的[[$2|用户页子页面]]下。请您以后避免在页面尚未达到最低质量标准的情况下直接在主名字空间创建。您可以待质量达到标准后再移动回主名字空间。感谢您的配合。",
                     "1",
                     pagename
                 );
