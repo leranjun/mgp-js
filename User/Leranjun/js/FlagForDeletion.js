@@ -4,9 +4,10 @@ by User:Leranjun
 
 Based on [[MediaWiki:Gadget-registerToDelete.js]]
 */
+/* jshint esversion: 8 */
 // <pre>
 (() => {
-    var self = $("#p-cactions .menu ul");
+    const self = $("#p-cactions .menu ul");
     if (!self.find("li")[0] || $(".will2Be2Deleted")[0] || mw.config.get("wgUserGroups").indexOf("patroller") === -1) return;
 
     $("<a/>", {
@@ -16,9 +17,11 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
         },
         text: "增强型挂删",
     })
-        .on("click", async () => {
-            if ($("#FlagForDeletion")[0]) {
-                $("#FlagForDeletion").show();
+        .on("click", async (e) => {
+            e.preventDefault();
+
+            if ($("#lr-ffd")[0]) {
+                $("#lr-ffd").show();
                 return;
             }
 
@@ -39,7 +42,7 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
                         "background-color": "rgba(255, 255, 255, 0.73)",
                         "z-index": 199,
                     },
-                    id: "FlagForDeletion",
+                    id: "lr-ffd",
                 }),
                 fieldset = new OO.ui.FieldsetLayout({
                     label: "增强型挂删",
@@ -92,12 +95,10 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
                     label: "详情",
                     align: "top",
                 }),
-
                 new OO.ui.FieldLayout(isDB, {
                     label: "讨论版申请",
                     align: "inline",
                 }),
-
                 new OO.ui.FieldLayout(
                     new OO.ui.Widget({
                         content: [
@@ -129,7 +130,6 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
 
                 let reason = reasons.getValue(),
                     detail = details.getValue();
-
                 if (reason === null || detail === null) {
                     return;
                 }
@@ -138,7 +138,6 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
                 } else {
                     reason = detail;
                 }
-
                 if (isDB.isSelected()) {
                     reason = "讨论版申请：" + reason;
                 }
@@ -162,20 +161,20 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
                         watchlist: "nochange",
                     });
                     if (d.error) {
-                        throw new Error();
-                    } else {
-                        mw.notify("即将刷新……", {
-                            title: "挂删成功",
-                            type: "success",
-                            tag: "FlagForDeletion",
-                        });
-                        window.setTimeout(() => window.location.reload(), 730);
+                        throw new Error(d.error.code);
                     }
+
+                    mw.notify("即将刷新……", {
+                        title: "挂删成功",
+                        type: "success",
+                        tag: "lr-ffd",
+                    });
+                    window.setTimeout(() => window.location.reload(), 730);
                 } catch (e) {
                     mw.notify(["挂删时出现错误：", $("<code />").text(e)], {
                         title: "挂删失败",
                         type: "error",
-                        tag: "FlagForDeletion",
+                        tag: "lr-ffd",
                     });
                     submit.setDisabled(false);
                     cancel.setDisabled(false);
@@ -185,7 +184,7 @@ Based on [[MediaWiki:Gadget-registerToDelete.js]]
         .appendTo(
             $("<li/>", {
                 attr: {
-                    id: "ca-FlagForDeletion",
+                    id: "ca-lr-ffd",
                 },
             }).prependTo(self)
         );
