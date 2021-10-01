@@ -3,12 +3,13 @@
 "use strict";
 $(() => (async () => {
     await mw.loader.using(["mw.Api", "mediawiki.Uri"]);
-    const groupsKey = ["bureaucrat", "sysop", "patroller", "goodeditor", "bot"].reverse();
+    const groupsKey = ["bureaucrat", "sysop", "patroller", "goodeditor", "honoredmaintainer", "bot"].reverse();
     const groupsStr = {
         bureaucrat: "政",
         sysop: "管",
         patroller: "巡",
         goodeditor: "优",
+        honoredmaintainer: "荣",
         bot: "机",
     };
     let cache;
@@ -34,7 +35,7 @@ $(() => (async () => {
     if (!$.isPlainObject(cache.groups)) {
         const api = new mw.Api();
         const result = await (async () => {
-            const result = {};
+            const result = Object.fromEntries(groupsKey.map((n) => [n, []]));
             const eol = Symbol();
             let aufrom = undefined;
             while (aufrom !== eol) {
@@ -89,6 +90,6 @@ $(() => (async () => {
             });
         }
     });
-    $("body").append("<style>.markrights-bureaucrat{color:#66CCFF}.markrights-sysop{color:#FF7F50}.markrights-patroller{color:#DA70D6}.markrights-goodeditor{color:#FFB6C1}.markrights-bot{color:#40E0D0}sup[class^=markrights]+sup[class^=markrights]{margin-left:2px}</style>");
+    $("body").append("<style>.markrights-bureaucrat{color:#66CCFF}.markrights-sysop{color:#FF7F50}.markrights-patroller{color:#DA70D6}.markrights-goodeditor{color:#FFB6C1}.markrights-honoredmaintainer{color:#FF5555}.markrights-bot{color:#40E0D0}sup[class^=markrights]+sup[class^=markrights]{margin-left:2px}</style>");
 })());
-//改自对A姐，删除了萌百不必要显示的职位，修改了颜色。
+//改自Ann姐，删除了萌百不必要显示的职位，修改了颜色。
