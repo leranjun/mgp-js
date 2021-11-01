@@ -1,6 +1,16 @@
-/* global $, mw */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable prefer-template */
+/* eslint-disable comma-dangle */
+/* eslint-disable no-var */
+/* eslint dot-notation: ["error", { "allowPattern": "^(?:catch|default)$" } ] */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
+/* global mw, $, OO, moment, Cron, prettyPrint, LocalObjectStorage, lazyload, wgULS */
+/* eslint-enable no-unused-vars */
+/* eslint-enable no-redeclare */
 "use strict";
-$(function() {
+// <pre>
+$(function () {
     var wgUserGroups = mw.config.get("wgUserGroups", []);
     if (!wgUserGroups.includes("sysop") && !wgUserGroups.includes("patroller")) {
         return;
@@ -17,7 +27,7 @@ $(function() {
         notoken: '参数"token"必须被设置',
         nouser: '参数"user"必须被设置'
     };
-    var loop = function(_, ele) {
+    var loop = function (_, ele) {
         var self = $(ele);
         self.data("href", self.attr("href")).removeAttr("href") //取消拖动链接回退
             .attr("title", ele.title + "（启用自定义摘要）").css("cursor", "pointer").append("<sup>+</sup>");
@@ -28,26 +38,34 @@ $(function() {
         ele.onmouseout = $.noop;
         ele.onmousedown = $.noop;
     };
-    var exit = function() {
+    var exit = function () {
         var rbcount = $("#rbcount");
         var count = 3;
-        setInterval(function() {
-            if (--count === 0) { window.location.reload(); }
+        setInterval(function () {
+            if (--count === 0) {
+                window.location.reload();
+            }
             rbcount.text(count > 0 ? count : "0");
         }, 1000);
     };
     $(".mw-rollback-link a").each(loop);
     var api = new mw.Api();
-    $(document.body).on("click", function(event) {
+    $(document.body).on("click", function (event) {
         var target = event.target;
         if (!$(target).is(".mw-rollback-link a")) {
             return true;
         }
         var self = $(target);
         var parent = self.parent();
-        if (!self.data("href")) { loop(null, target); }
-        if (!parent.find(self)[0]) { return false; }
-        if (mw.config.get("wgRollbacking")) { return false; }
+        if (!self.data("href")) {
+            loop(null, target);
+        }
+        if (!parent.find(self)[0]) {
+            return false;
+        }
+        if (mw.config.get("wgRollbacking")) {
+            return false;
+        }
         var rollbackSummary = prompt("回退操作的编辑摘要【xxx//Rollback】\n【空白则使用默认回退摘要】\n【取消则不进行回退】：");
         if (rollbackSummary !== null) {
             var uri = new mw.Uri(self.data("href"));
@@ -65,10 +83,10 @@ $(function() {
                 token: uri.query.token,
                 action: "rollback",
                 format: "json",
-            }).then(function() {
+            }).then(function () {
                 rbing.css("color", "green").html('成功！将在<span id="rbcount">3</span>秒内刷新');
                 exit();
-            }, function(e) {
+            }, function (e) {
                 var errorText = e instanceof Error ? e + " " + e.stack.split("\n")[1].trim() : $.isPlainObject(e) ? JSON.stringify(e) : typeof e === "string" && e in possibleError ? possibleError[e] : e + "";
                 rbing.css("color", "red").html("错误：" + errorText + '。将在<span id="rbcount">3</span>秒内刷新');
                 exit();
@@ -78,3 +96,4 @@ $(function() {
     });
     new Image().src = "https://img.moegirl.org.cn/common/d/d1/Windows_10_loading.gif";
 });
+// </pre>
