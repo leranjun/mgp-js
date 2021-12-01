@@ -2470,3 +2470,4 @@ window.hotcat_translations_from_commons = false; // 禁止从维基共享获取�
     }
     $.when(mw.loader.using("user"), $.ready).always(run);
 })(jQuery, mediaWiki);
+//</nowiki>

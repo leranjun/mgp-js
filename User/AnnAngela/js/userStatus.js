@@ -70,7 +70,7 @@ $(() => (async () => {
         })();
         const pt = $("<li id=\"pt-userstatus\"><a id=\"pt-userpage-link\" href=\"javascript:void(0);\" dir=\"auto\" title=\"您的状态\"></a></li>");
         pt.find("#pt-userpage-link").html(currentStatus).on("click", async () => {
-            await mw.loader.using(["oojs-ui", "mw.Api"]);
+            await mw.loader.using(["oojs-ui", "mediawiki.api"]);
             const messageDialog = new OO.ui.MessageDialog();
             const windowManager = new OO.ui.WindowManager();
             $("body").append(windowManager.$element);
@@ -165,7 +165,7 @@ $(() => (async () => {
             return false;
         });
         $("#pt-userpage").after(pt);
-        mw.loader.using(["oojs-ui", "mw.Api"]);
+        mw.loader.using(["oojs-ui", "mediawiki.api"]);
     } catch (reason) {
         console.error(reason);
         const lastError = sessionStorage.getItem("AnnTools-userstatus-img-Error");

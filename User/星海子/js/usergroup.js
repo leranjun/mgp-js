@@ -12,7 +12,7 @@
 */
 "use strict";
 $(() => (async () => {
-	await mw.loader.using(["mw.Api", "mediawiki.Uri"]);
+	await mw.loader.using(["mediawiki.api", "mediawiki.Uri"]);
 	const groupsKey = ["staff",
 		"bureaucrat", "checkuser", "suppress", "sysop", "patroller", 
 		"goodeditor", "honoredmaintainer", "VIP" , 
